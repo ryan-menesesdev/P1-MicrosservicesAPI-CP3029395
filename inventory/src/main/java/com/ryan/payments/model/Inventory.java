@@ -1,4 +1,4 @@
-package com.ryan.catalog.model;
+package com.ryan.payments.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -7,18 +7,21 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "catalogo_tb")
+@Table(name = "estoque_tb")
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Product {
+public class Inventory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String nome;
-    private String observacao;
-    private Double valorIndividual;
+
+    @Column(name = "produto_id", unique = true)
+    private Long produtoId;
+
+    @Column(name = "quantidade_disponivel")
+    private Integer quantidadeDisponivel;
 }
 

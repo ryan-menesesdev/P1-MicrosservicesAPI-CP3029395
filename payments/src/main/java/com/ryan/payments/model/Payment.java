@@ -1,4 +1,4 @@
-package com.ryan.catalog.model;
+package com.ryan.payments.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -7,18 +7,24 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "catalogo_tb")
+@Table(name = "pagamentos_tb")
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Product {
+public class Payment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String nome;
-    private String observacao;
-    private Double valorIndividual;
+
+    @Column(name = "pedido_id")
+    private Long pedidoId;
+
+    @Column(name = "valor")
+    private Double valor;
+
+    @Enumerated(EnumType.STRING)
+    private PaymentStatus status;
 }
 
