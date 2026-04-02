@@ -1,5 +1,6 @@
 package com.ryan.catalog.service;
 
+import com.ryan.catalog.controller.handler.exception.ProductNotFoundException;
 import com.ryan.catalog.dto.ProductRequest;
 import com.ryan.catalog.dto.ProductResponse;
 import com.ryan.catalog.model.Product;
@@ -24,10 +25,10 @@ public class ProductService {
                 .map(this::mapToResponse).toList();
     }
 
-    @Transactional()
+    @Transactional
     public ProductResponse findById(Long id) {
         Product product = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Product not found"));
+                .orElseThrow(() -> new ProductNotFoundException("Product not found with id: " + id));
         return mapToResponse(product);
     }
 

@@ -12,7 +12,7 @@ public record ErrorResponse(
         String message,
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
         LocalDateTime timestamp,
-        String stackTrace,
-        Object data
+        String path,
+        Object details
 ) {
 }
