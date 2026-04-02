@@ -1,4 +1,4 @@
-package com.ryan.orders.dto;
+package com.ryan.orders.dto.payment;
 
 public record PaymentRequest(
         Long pedidoId,

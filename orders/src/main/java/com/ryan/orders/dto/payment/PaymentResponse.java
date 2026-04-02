@@ -1,4 +1,4 @@
-package com.ryan.payments.dto;
+package com.ryan.orders.dto.payment;
 
 public record PaymentResponse(
         Long pagamentoId,

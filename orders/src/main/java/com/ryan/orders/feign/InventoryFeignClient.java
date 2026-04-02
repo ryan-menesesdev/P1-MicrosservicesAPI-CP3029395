@@ -1,6 +1,6 @@
 package com.ryan.orders.feign;
 
-import com.ryan.orders.dto.InventoryRequest;
+import com.ryan.orders.dto.inventory.InventoryRequest;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 

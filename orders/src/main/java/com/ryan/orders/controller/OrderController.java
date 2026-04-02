@@ -1,7 +1,8 @@
 package com.ryan.orders.controller;
 
-import com.ryan.orders.dto.OrderRequest;
-import com.ryan.orders.dto.OrderResponse;
+import com.ryan.orders.dto.order.ConfirmPaymentRequest;
+import com.ryan.orders.dto.order.OrderRequest;
+import com.ryan.orders.dto.order.OrderResponse;
 import com.ryan.orders.service.OrderService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -20,9 +21,9 @@ public class OrderController {
         this.orderService = orderService;
     }
 
-    @PostMapping
-    public ResponseEntity<OrderResponse> create(@RequestBody @Valid OrderRequest request) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(orderService.create(request));
+    @GetMapping
+    public ResponseEntity<List<OrderResponse>> getAll() {
+        return ResponseEntity.ok(orderService.findAll());
     }
 
     @GetMapping("/{id}")
@@ -33,5 +34,18 @@ public class OrderController {
     @GetMapping("/user/{userId}")
     public ResponseEntity<List<OrderResponse>> getOrdersByUserId(@PathVariable Long userId) {
         return ResponseEntity.ok(orderService.findOrdersByUserId(userId));
+    }
+
+    @PostMapping
+    public ResponseEntity<OrderResponse> createPending(@RequestBody @Valid OrderRequest request) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(orderService.createOrder(request));
+    }
+
+    @PostMapping("/{orderId}/confirm-payment")
+    public ResponseEntity<OrderResponse> confirmPayment(
+            @PathVariable Long orderId,
+            @RequestBody @Valid ConfirmPaymentRequest request
+    ) {
+        return ResponseEntity.ok(orderService.confirmPayment(orderId, request.valorPago()));
     }
 }

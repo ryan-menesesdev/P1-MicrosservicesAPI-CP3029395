@@ -24,7 +24,7 @@ public class PaymentService {
     @Transactional()
     public List<PaymentResponse> findAll() {
         return repository.findAll().stream()
-            .map(p -> new PaymentResponse(p.getId(), p.getStatus().name()))
+            .map(p -> new PaymentResponse(p.getId(), p.getPedidoId(), p.getStatus().name(), p.getValor()))
             .toList();
     }
 
@@ -32,7 +32,7 @@ public class PaymentService {
     public PaymentResponse findById(Long id) {
         Payment payment = repository.findById(id)
                 .orElseThrow(() -> new PaymentNotFoundException("Pagamento não encontrado com id: " + id));
-        return new PaymentResponse(payment.getId(), payment.getStatus().name());
+        return new PaymentResponse(payment.getId(), payment.getPedidoId(), payment.getStatus().name(), payment.getValor());
     }
 
     @Transactional
@@ -52,7 +52,9 @@ public class PaymentService {
 
         return new PaymentResponse(
                 savedPayment.getId(),
-                savedPayment.getStatus().name()
+                savedPayment.getPedidoId(),
+                savedPayment.getStatus().name(),
+                savedPayment.getValor()
         );
     }
 }
