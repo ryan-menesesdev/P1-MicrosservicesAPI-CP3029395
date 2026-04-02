@@ -1,8 +1,9 @@
-package com.ryan.payments.controller.handler;
+package com.ryan.users.controller.handler;
 
-import com.ryan.payments.controller.handler.exception.InsufficientStockException;
-import com.ryan.payments.controller.handler.exception.InventoryNotFoundException;
-import feign.FeignException;
+import com.ryan.users.controller.handler.exception.CpfAlreadyExistentException;
+import com.ryan.users.controller.handler.exception.EmailAlreadyExistentException;
+import com.ryan.users.controller.handler.exception.UnderAgeException;
+import com.ryan.users.controller.handler.exception.UserNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.http.HttpStatus;
@@ -21,8 +22,8 @@ import java.util.Map;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(InventoryNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handleInventoryNotFound(InventoryNotFoundException ex, HttpServletRequest request) {
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleUserNotFound(UserNotFoundException ex, HttpServletRequest request) {
         ErrorResponse errorResponse = new ErrorResponse(
                 HttpStatus.NOT_FOUND.value(),
                 HttpStatus.NOT_FOUND.name(),
@@ -34,8 +35,34 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(InsufficientStockException.class)
-    public ResponseEntity<ErrorResponse> handleInsufficientStock(InsufficientStockException ex, HttpServletRequest request) {
+    @ExceptionHandler(EmailAlreadyExistentException.class)
+    public ResponseEntity<ErrorResponse> handleEmailAlreadyExistent(EmailAlreadyExistentException ex, HttpServletRequest request) {
+        ErrorResponse errorResponse = new ErrorResponse(
+            HttpStatus.CONFLICT.value(),
+            HttpStatus.CONFLICT.name(),
+            ex.getMessage(),
+            LocalDateTime.now(),
+            request.getRequestURI(),
+            null
+        );
+        return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(CpfAlreadyExistentException.class)
+    public ResponseEntity<ErrorResponse> handleCpfAlreadyExistent(CpfAlreadyExistentException ex, HttpServletRequest request) {
+        ErrorResponse errorResponse = new ErrorResponse(
+                HttpStatus.CONFLICT.value(),
+                HttpStatus.CONFLICT.name(),
+                ex.getMessage(),
+                LocalDateTime.now(),
+                request.getRequestURI(),
+                null
+        );
+        return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(UnderAgeException.class)
+    public ResponseEntity<ErrorResponse> handleUnderAge(UnderAgeException ex, HttpServletRequest request) {
         ErrorResponse errorResponse = new ErrorResponse(
                 HttpStatus.BAD_REQUEST.value(),
                 HttpStatus.BAD_REQUEST.name(),
@@ -45,30 +72,6 @@ public class GlobalExceptionHandler {
                 null
         );
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
-    }
-
-    @ExceptionHandler(FeignException.class)
-    public ResponseEntity<ErrorResponse> handleFeignException(FeignException ex, HttpServletRequest request) {
-        int status = ex.status();
-        String message = "Erro na integração com o serviço de Catálogo.";
-
-        if (status == 404) {
-            message = "O produto solicitado não foi encontrado no Catálogo.";
-            status = HttpStatus.NOT_FOUND.value();
-        } else if (status >= 500 || status <= 0) {
-            message = "O serviço de Catálogo está indisponível no momento.";
-            status = HttpStatus.BAD_GATEWAY.value();
-        }
-
-        ErrorResponse errorResponse = new ErrorResponse(
-                status,
-                HttpStatus.resolve(status) != null ? HttpStatus.resolve(status).name() : "INTEGRATION_ERROR",
-                message,
-                LocalDateTime.now(),
-                request.getRequestURI(),
-                null
-        );
-        return ResponseEntity.status(status).body(errorResponse);
     }
 
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)

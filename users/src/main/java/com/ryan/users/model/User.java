@@ -22,9 +22,16 @@ public class User {
     private Long id;
     private String nome;
     private String senha;
+
+    @Column(name = "email", unique = true)
     private String email;
+
+    @Column(name = "cpf", unique = true)
     private String cpf;
+
     private Integer idade;
+
+    @Column(name = "data_nascimento")
     private LocalDate dataNascimento;
 }
 
