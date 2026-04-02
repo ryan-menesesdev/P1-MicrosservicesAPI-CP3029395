@@ -28,7 +28,7 @@ public class ProductService {
     @Transactional
     public ProductResponse findById(Long id) {
         Product product = repository.findById(id)
-                .orElseThrow(() -> new ProductNotFoundException("Product not found with id: " + id));
+                .orElseThrow(() -> new ProductNotFoundException("Produto não encontrado com id: " + id));
         return mapToResponse(product);
     }
 

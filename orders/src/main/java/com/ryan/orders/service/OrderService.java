@@ -53,12 +53,12 @@ public class OrderService {
             OrderItem orderItem = OrderItem.builder()
                 .produtoId(product.id())
                 .quantidade(itemRequest.quantidade())
-                .precoCompra(product.price())
+                .precoCompra(product.valorIndividual())
                 .build();
 
             order.addItem(orderItem);
 
-            double itemTotal = product.price() * itemRequest.quantidade();
+            double itemTotal = product.valorIndividual() * itemRequest.quantidade();
             totalValue += itemTotal;
         }
 

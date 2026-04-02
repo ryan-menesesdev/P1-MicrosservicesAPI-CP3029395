@@ -1,7 +1,8 @@
-package com.ryan.catalog.controller.handler;
+package com.ryan.payments.controller.handler;
 
-import com.ryan.catalog.controller.handler.exception.ProductNotFoundException;
-
+import com.ryan.payments.controller.handler.exception.InsufficientStockException;
+import com.ryan.payments.controller.handler.exception.InventoryNotFoundException;
+import feign.FeignException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.http.HttpStatus;
@@ -20,19 +21,54 @@ import java.util.Map;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(ProductNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handleProductNotFoundException(ProductNotFoundException ex, HttpServletRequest request) {
-        String path = request.getRequestURI() + (request.getQueryString() != null ? "?" + request.getQueryString() : "");
-
+    @ExceptionHandler(InventoryNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleInventoryNotFound(InventoryNotFoundException ex, HttpServletRequest request) {
         ErrorResponse errorResponse = new ErrorResponse(
                 HttpStatus.NOT_FOUND.value(),
                 HttpStatus.NOT_FOUND.name(),
                 ex.getMessage(),
                 LocalDateTime.now(),
-                path,
+                request.getRequestURI(),
                 null
         );
         return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(InsufficientStockException.class)
+    public ResponseEntity<ErrorResponse> handleInsufficientStock(InsufficientStockException ex, HttpServletRequest request) {
+        ErrorResponse errorResponse = new ErrorResponse(
+                HttpStatus.BAD_REQUEST.value(),
+                HttpStatus.BAD_REQUEST.name(),
+                ex.getMessage(),
+                LocalDateTime.now(),
+                request.getRequestURI(),
+                null
+        );
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(FeignException.class)
+    public ResponseEntity<ErrorResponse> handleFeignException(FeignException ex, HttpServletRequest request) {
+        int status = ex.status();
+        String message = "Erro na integração com o serviço de Catálogo.";
+
+        if (status == 404) {
+            message = "O produto solicitado não foi encontrado no Catálogo.";
+            status = HttpStatus.NOT_FOUND.value();
+        } else if (status >= 500 || status <= 0) {
+            message = "O serviço de Catálogo está indisponível no momento.";
+            status = HttpStatus.BAD_GATEWAY.value();
+        }
+
+        ErrorResponse errorResponse = new ErrorResponse(
+                status,
+                HttpStatus.resolve(status) != null ? HttpStatus.resolve(status).name() : "INTEGRATION_ERROR",
+                message,
+                LocalDateTime.now(),
+                request.getRequestURI(),
+                null
+        );
+        return ResponseEntity.status(status).body(errorResponse);
     }
 
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
@@ -103,7 +139,7 @@ public class GlobalExceptionHandler {
         ErrorResponse errorResponse = new ErrorResponse(
                 HttpStatus.BAD_REQUEST.value(),
                 HttpStatus.BAD_REQUEST.name(),
-                "Erro de validação",
+                "Validation Error",
                 LocalDateTime.now(),
                 path,
                 errors
@@ -118,7 +154,7 @@ public class GlobalExceptionHandler {
         ErrorResponse errorResponse = new ErrorResponse(
                 HttpStatus.INTERNAL_SERVER_ERROR.value(),
                 HttpStatus.INTERNAL_SERVER_ERROR.name(),
-                "Um erro inesperado aconteceu",
+                "An unexpected error occurred",
                 LocalDateTime.now(),
                 path,
                 null

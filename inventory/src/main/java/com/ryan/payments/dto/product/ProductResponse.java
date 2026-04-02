@@ -1,4 +1,4 @@
-package com.ryan.orders.dto;
+package com.ryan.payments.dto.product;
 
 public record ProductResponse(
     Long id,

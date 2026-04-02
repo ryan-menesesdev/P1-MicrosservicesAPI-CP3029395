@@ -1,8 +1,10 @@
 package com.ryan.payments.service;
 
-import com.ryan.payments.dto.InventoryRequest;
-import com.ryan.payments.dto.InventoryResponse;
-import com.ryan.payments.dto.ProductResponse;
+import com.ryan.payments.controller.handler.exception.InsufficientStockException;
+import com.ryan.payments.controller.handler.exception.InventoryNotFoundException;
+import com.ryan.payments.dto.inventory.InventoryRequest;
+import com.ryan.payments.dto.inventory.InventoryResponse;
+import com.ryan.payments.dto.product.ProductResponse;
 import com.ryan.payments.feign.ProductFeignClient;
 import com.ryan.payments.model.Inventory;
 import com.ryan.payments.repository.InventoryRepository;
@@ -27,7 +29,7 @@ public class InventoryService {
 
         return new InventoryResponse(
                 inventory.getProdutoId(),
-                product.name(),
+                product.nome(),
                 inventory.getQuantidadeDisponivel()
         );
     }
@@ -42,10 +44,10 @@ public class InventoryService {
     @Transactional
     public InventoryResponse deductInventory(Long productId, InventoryRequest request) {
         Inventory inventory = repository.findByProdutoId(productId)
-                .orElseThrow(() -> new RuntimeException("Inventory not found for product: " + productId));
+                .orElseThrow(() -> new InventoryNotFoundException("Estoque não inicializado para o produto: " + productId));
 
         if (inventory.getQuantidadeDisponivel() < request.quantidade()) {
-            throw new RuntimeException("Insufficient stock for product: " + productId);
+            throw new InsufficientStockException("Estoque insuficiente para o produto: " + productId);
         }
 
         inventory.setQuantidadeDisponivel(inventory.getQuantidadeDisponivel() - request.quantidade());
@@ -55,7 +57,7 @@ public class InventoryService {
 
         return new InventoryResponse(
                 savedInventory.getProdutoId(),
-                product.name(),
+                product.nome(),
                 savedInventory.getQuantidadeDisponivel()
         );
     }
@@ -71,7 +73,7 @@ public class InventoryService {
 
         return new InventoryResponse(
                 savedInventory.getProdutoId(),
-                product.name(),
+                product.nome(),
                 savedInventory.getQuantidadeDisponivel()
         );
     }
