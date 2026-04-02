@@ -1,8 +1,7 @@
 package com.ryan.orders.model;
 
 public enum PedidoStatus {
+    PAGO,
     CRIADO,
-    EM_PROCESSO,
-    CONCLUIDO,
-    FALHA
+    CANCELADO
 }

@@ -34,15 +34,13 @@ public class InventoryController {
     public ResponseEntity<InventoryResponse> updateInventory(
             @PathVariable Long productId,
             @RequestBody @Valid InventoryRequest request) {
-        return ResponseEntity.ok(service.deductInventory(productId, request.quantidade()));
+        return ResponseEntity.ok(service.deductInventory(productId, request));
     }
 
     @PostMapping("/{productId}")
-    public ResponseEntity<InventoryResponse> initializeStock(
+    public ResponseEntity<InventoryResponse> addToInventory(
             @PathVariable Long productId,
             @RequestBody @Valid InventoryRequest request) {
-
-        InventoryResponse response = service.initializeStock(productId, request.quantidade());
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        return ResponseEntity.status(HttpStatus.OK).body(service.addToInventory(productId, request));
     }
 }

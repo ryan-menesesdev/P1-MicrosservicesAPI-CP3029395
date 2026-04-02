@@ -11,6 +11,8 @@ import com.ryan.orders.repository.OrderRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class OrderService {
 
@@ -34,13 +36,13 @@ public class OrderService {
     @Transactional
     public OrderResponse create(OrderRequest request) {
         Order order = Order.builder()
-            .usuarioId(request.usuarioId())
-            .status(PedidoStatus.CRIADO)
-            .build();
+                .usuarioId(request.usuarioId())
+                .status(PedidoStatus.CRIADO)
+                .build();
 
         double totalValue = 0.0;
 
-        for (var itemRequest : request.itens()) {
+        for (OrderItemRequest itemRequest : request.itens()) {
             ProductResponse product = catalogClient.getProductById(itemRequest.produtoId());
 
             boolean isAvailable = inventoryClient.checkAvailability(itemRequest.produtoId(), itemRequest.quantidade());
@@ -49,10 +51,10 @@ public class OrderService {
             }
 
             OrderItem orderItem = OrderItem.builder()
-                    .produtoId(product.id())
-                    .quantidade(itemRequest.quantidade())
-                    .precoCompra(product.price())
-                    .build();
+                .produtoId(product.id())
+                .quantidade(itemRequest.quantidade())
+                .precoCompra(product.price())
+                .build();
 
             order.addItem(orderItem);
 
@@ -68,12 +70,18 @@ public class OrderService {
         try {
             PaymentResponse paymentResponse = paymentClient.processPayment(paymentRequest);
             if ("APROVADO".equalsIgnoreCase(paymentResponse.status())) {
-                savedOrder.setStatus(PedidoStatus.CONCLUIDO);
+                savedOrder.setStatus(PedidoStatus.PAGO);
+
+                for (OrderItemRequest itemRequest : request.itens()) {
+                    InventoryRequest invRequest = new InventoryRequest(itemRequest.quantidade());
+                    inventoryClient.deductInventory(itemRequest.produtoId(), invRequest);
+                }
+
             } else {
-                savedOrder.setStatus(PedidoStatus.FALHA);
+                savedOrder.setStatus(PedidoStatus.CANCELADO);
             }
         } catch (Exception e) {
-            savedOrder.setStatus(PedidoStatus.FALHA);
+            savedOrder.setStatus(PedidoStatus.CANCELADO);
         }
 
         return mapToResponse(repository.save(savedOrder));
@@ -84,6 +92,14 @@ public class OrderService {
         Order order = repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Order not found"));
         return mapToResponse(order);
+    }
+
+    @Transactional
+    public List<OrderResponse> findOrdersByUserId(Long userId) {
+        List<Order> orders = repository.findByUsuarioId(userId);
+        return orders.stream()
+                .map(this::mapToResponse)
+                .toList();
     }
 
     private OrderResponse mapToResponse(Order order) {
