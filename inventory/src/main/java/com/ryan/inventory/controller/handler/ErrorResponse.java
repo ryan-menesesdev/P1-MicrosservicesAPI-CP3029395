@@ -1,4 +1,4 @@
-package com.ryan.payments.controller.handler;
+package com.ryan.inventory.controller.handler;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;

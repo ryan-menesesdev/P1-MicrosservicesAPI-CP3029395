@@ -1,7 +1,7 @@
-package com.ryan.payments.controller.handler;
+package com.ryan.inventory.controller.handler;
 
-import com.ryan.payments.controller.handler.exception.InsufficientStockException;
-import com.ryan.payments.controller.handler.exception.InventoryNotFoundException;
+import com.ryan.inventory.controller.handler.exception.InsufficientStockException;
+import com.ryan.inventory.controller.handler.exception.InventoryNotFoundException;
 import feign.FeignException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.TypeMismatchException;

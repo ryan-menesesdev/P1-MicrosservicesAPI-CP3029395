@@ -1,8 +1,8 @@
-package com.ryan.payments.controller;
+package com.ryan.inventory.controller;
 
-import com.ryan.payments.dto.inventory.InventoryRequest;
-import com.ryan.payments.dto.inventory.InventoryResponse;
-import com.ryan.payments.service.InventoryService;
+import com.ryan.inventory.dto.inventory.InventoryRequest;
+import com.ryan.inventory.dto.inventory.InventoryResponse;
+import com.ryan.inventory.service.InventoryService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

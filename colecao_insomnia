@@ -1,0 +1,576 @@
+type: collection.insomnia.rest/5.0
+schema_version: "5.1"
+name: P1 - WEB3
+meta:
+  id: wrk_14ff99c5d26045e391fcdfa46d49a55c
+  created: 1775085635401
+  modified: 1775085635401
+  description: ""
+collection:
+  - name: ORDERS
+    meta:
+      id: fld_131b4bf79b9745208cde18fbfa883b17
+      created: 1775000312147
+      modified: 1775000312147
+      sortKey: -1775000312147
+      description: ""
+    children:
+      - url: localhost:8083/orders/1
+        name: Ver PEDIDO
+        meta:
+          id: req_cd583a6eb8134d06b97ca488e4f0cf93
+          created: 1775000316783
+          modified: 1775165177288
+          isPrivate: false
+          description: ""
+          sortKey: -1775000316783
+        method: GET
+        body:
+          mimeType: application/json
+          text: ""
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.4.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: localhost:8083/orders/user/1
+        name: Ver PEDIDO por ID de USUÁRIO
+        meta:
+          id: req_bcef4e9f014248318cb8f7a2796df9a7
+          created: 1775088801544
+          modified: 1775088839260
+          isPrivate: false
+          description: ""
+          sortKey: -1775000316758
+        method: GET
+        body:
+          mimeType: application/json
+          text: ""
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.4.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: localhost:8083/orders
+        name: Ver PEDIDOS
+        meta:
+          id: req_52d44a768d8a4fa3a8fc70a896e20962
+          created: 1775163542297
+          modified: 1775163546422
+          isPrivate: false
+          description: ""
+          sortKey: -1775000316770.5
+        method: GET
+        body:
+          mimeType: application/json
+          text: ""
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.4.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: localhost:8083/orders/2/confirm-payment
+        name: Confirmar PEDIDO
+        meta:
+          id: req_cc577929b700460b8e99eeb8ef921778
+          created: 1775164271733
+          modified: 1775167432256
+          isPrivate: false
+          description: ""
+          sortKey: -1775000316683
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"valorPago": 10.0
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.4.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: localhost:8083/orders
+        name: Criar PEDIDO com status CRIADO
+        meta:
+          id: req_ffa8319329264f9e8c41d0b9d01c0d05
+          created: 1775164298187
+          modified: 1775167244830
+          isPrivate: false
+          description: ""
+          sortKey: -1775000316708
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "usuarioId": 1,
+              "itens": [
+                {
+                  "produtoId": 1,
+                  "quantidade": 5
+                },
+                {
+                  "produtoId": 2,
+                  "quantidade": 5
+                }
+              ]
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.4.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: CATALOG
+    meta:
+      id: fld_3404367c87bd45c5875da511f29bacab
+      created: 1775002185058
+      modified: 1775002185058
+      sortKey: -1775002185058
+      description: ""
+    children:
+      - url: localhost:8084/products
+        name: Criar PRODUTO
+        meta:
+          id: req_e909055702dd4553a3b06a0c0420cea6
+          created: 1775002460933
+          modified: 1775167119022
+          isPrivate: false
+          description: ""
+          sortKey: -1775002460933
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+                "nome": "Arroz Branco 3",
+                "observacao": "Arroz nutritivo, muito bem avaliado!",
+                "valorIndividual": 1
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.4.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: localhost:8084/products/2
+        name: Receber PRODUTO por ID
+        meta:
+          id: req_929bc0b8776a44d4b3a64232221eacb2
+          created: 1775002678135
+          modified: 1775161508797
+          isPrivate: false
+          description: ""
+          sortKey: -1775002678135
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.4.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: localhost:8084/products
+        name: Receber PRODUTOS
+        meta:
+          id: req_f9d054e6a38f43fc97e068a34cb972d7
+          created: 1775003275177
+          modified: 1775003277786
+          isPrivate: false
+          description: ""
+          sortKey: -1775002569534
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.4.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: INVENTORY
+    meta:
+      id: fld_502c49166e824f7c8dd661292bc10ab9
+      created: 1775002192758
+      modified: 1775002192758
+      sortKey: -1775002192758
+      description: ""
+    children:
+      - url: localhost:8081/inventory/3
+        name: Receber PRODUTO no ESTOQUE
+        meta:
+          id: req_0539a420f0d74d0a81b5f903bad914a1
+          created: 1775002720633
+          modified: 1775167194911
+          isPrivate: false
+          description: ""
+          sortKey: -1775002720633
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.4.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: localhost:8081/inventory/2
+        name: Adicionar QUANTIDADE de PRODUTO no ESTOQUE
+        meta:
+          id: req_ae0ac8c254a54053b57e7263b6460e47
+          created: 1775002844647
+          modified: 1775167507097
+          isPrivate: false
+          description: ""
+          sortKey: -1775002844647
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"quantidade": 10
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.4.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: localhost:8081/inventory/1/check?quantity=10
+        name: Verificar se PRODUTO existe na QUANTIDADE digitada no ESTOQUE
+        meta:
+          id: req_1a67a1c4f5774b00930a9f84abb2a24a
+          created: 1775002925564
+          modified: 1775167206272
+          isPrivate: false
+          description: ""
+          sortKey: -1775002699384
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.4.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: localhost:8081/inventory/3
+        name: Alterar/Retirar QUANTIDADE de PRODUTO no ESTOQUE
+        meta:
+          id: req_d0287193de03424d9a3ba5f954abe024
+          created: 1775002965447
+          modified: 1775167190002
+          isPrivate: false
+          description: ""
+          sortKey: -1775002710008.5
+        method: PUT
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"quantidade": 1
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.4.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: PAYMENTS
+    meta:
+      id: fld_0c3226051e7e4cc8b8447a164f9c1289
+      created: 1775002202126
+      modified: 1775002202126
+      sortKey: -1775002202126
+      description: ""
+    children:
+      - url: localhost:8082/payments
+        name: Processar PAGAMENTO
+        meta:
+          id: req_b06f0351c9324addb87b4995f2eb544a
+          created: 1775004888030
+          modified: 1775161891422
+          isPrivate: false
+          description: ""
+          sortKey: -1775004888030
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"pedidoId": 1,
+            	"valorPedido": 100.0,
+            	"valorPago": 90.0
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.4.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: localhost:8082/payments
+        name: Receber PAGAMENTOS
+        meta:
+          id: req_cc6713ed236c46eb9af7ca5a500f490b
+          created: 1775161437228
+          modified: 1775161441840
+          isPrivate: false
+          description: ""
+          sortKey: -1775003866338.5
+        method: GET
+        body:
+          mimeType: application/json
+          text: ""
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.4.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: localhost:8082/payments/1
+        name: Receber PAGAMENTO por ID
+        meta:
+          id: req_c44803cfadc5470f863361440e9b3b53
+          created: 1775161451596
+          modified: 1775161454570
+          isPrivate: false
+          description: ""
+          sortKey: -1775003355492.75
+        method: GET
+        body:
+          mimeType: application/json
+          text: ""
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.4.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: USERS
+    meta:
+      id: fld_c936e5b58f9546618535c3001dd148c5
+      created: 1775002209473
+      modified: 1775002280203
+      sortKey: -1775002209473
+      description: ""
+    children:
+      - url: localhost:8080/users/1
+        name: Receber USUÁRIO por ID
+        meta:
+          id: req_fc1ab784593043a6b2fbcc830a568e77
+          created: 1775002225510
+          modified: 1775159838362
+          isPrivate: false
+          description: ""
+          sortKey: -1775002228039
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.4.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: localhost:8080/users
+        name: Cadastrar USUÁRIO
+        meta:
+          id: req_7cc53470d8aa406983e0161e38eadcc1
+          created: 1775002283131
+          modified: 1775167095583
+          isPrivate: false
+          description: ""
+          sortKey: -1775002283131
+        method: POST
+        body:
+          mimeType: application/json
+          text: |
+            {
+              "nome": "Fulano da Silva",
+              "senha": "Abc!2345",
+              "email": "fulano@example.com",
+              "cpf": "94779171091",
+              "idade": 18,
+              "dataNascimento": "1996-01-01"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.4.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: localhost:8080/users
+        name: Receber USUÁRIOS
+        meta:
+          id: req_445fe4c4078e40888ed4840bde7307e7
+          created: 1775158657157
+          modified: 1775158659327
+          isPrivate: false
+          description: ""
+          sortKey: -1775001272411
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.4.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_97f7ffea187fa1f8eefe0a8d8d69c29890dea152
+    created: 1775085635404
+    modified: 1775085635404
+environments:
+  name: Base Environment
+  meta:
+    id: env_97f7ffea187fa1f8eefe0a8d8d69c29890dea152
+    created: 1775085635403
+    modified: 1775085635403
+    isPrivate: false

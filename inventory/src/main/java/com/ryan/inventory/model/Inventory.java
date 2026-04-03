@@ -1,4 +1,4 @@
-package com.ryan.payments.model;
+package com.ryan.inventory.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

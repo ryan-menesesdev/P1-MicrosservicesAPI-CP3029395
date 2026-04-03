@@ -1,4 +1,4 @@
-package com.ryan.payments;
+package com.ryan.inventory;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

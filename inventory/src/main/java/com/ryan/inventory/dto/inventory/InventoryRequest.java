@@ -1,4 +1,4 @@
-package com.ryan.payments.dto.inventory;
+package com.ryan.inventory.dto.inventory;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;

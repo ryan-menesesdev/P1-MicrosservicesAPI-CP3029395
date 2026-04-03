@@ -1,4 +1,4 @@
-package com.ryan.payments.dto.inventory;
+package com.ryan.inventory.dto.inventory;
 
 public record InventoryResponse(
         Long produtoId,

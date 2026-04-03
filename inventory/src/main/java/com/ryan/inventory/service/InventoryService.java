@@ -1,13 +1,13 @@
-package com.ryan.payments.service;
+package com.ryan.inventory.service;
 
-import com.ryan.payments.controller.handler.exception.InsufficientStockException;
-import com.ryan.payments.controller.handler.exception.InventoryNotFoundException;
-import com.ryan.payments.dto.inventory.InventoryRequest;
-import com.ryan.payments.dto.inventory.InventoryResponse;
-import com.ryan.payments.dto.product.ProductResponse;
-import com.ryan.payments.feign.ProductFeignClient;
-import com.ryan.payments.model.Inventory;
-import com.ryan.payments.repository.InventoryRepository;
+import com.ryan.inventory.controller.handler.exception.InsufficientStockException;
+import com.ryan.inventory.controller.handler.exception.InventoryNotFoundException;
+import com.ryan.inventory.dto.inventory.InventoryRequest;
+import com.ryan.inventory.dto.inventory.InventoryResponse;
+import com.ryan.inventory.dto.product.ProductResponse;
+import com.ryan.inventory.feign.ProductFeignClient;
+import com.ryan.inventory.model.Inventory;
+import com.ryan.inventory.repository.InventoryRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 

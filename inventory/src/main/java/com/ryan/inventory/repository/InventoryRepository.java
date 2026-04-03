@@ -1,6 +1,6 @@
-package com.ryan.payments.repository;
+package com.ryan.inventory.repository;
 
-import com.ryan.payments.model.Inventory;
+import com.ryan.inventory.model.Inventory;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,6 +1,6 @@
-package com.ryan.payments.feign;
+package com.ryan.inventory.feign;
 
-import com.ryan.payments.dto.product.ProductResponse;
+import com.ryan.inventory.dto.product.ProductResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
