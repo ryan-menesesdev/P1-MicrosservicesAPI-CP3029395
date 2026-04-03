@@ -98,31 +98,31 @@ Como o projeto utiliza o banco de dados em memória H2, o banco será recriado a
 ## URL's para requisições REST
 
 ### 👥 USERS (Porta 8080)
-* **GET /users/1**: Receber USUÁRIO por ID.
+* **GET /users/{id}**: Receber USUÁRIO por ID.
 * **POST /users**: Cadastrar USUÁRIO (Envia `nome`, `senha`, `email`, `cpf`, `idade`, `dataNascimento`).
 * **GET /users**: Receber USUÁRIOS.
 
 ### 🏢 INVENTORY (Porta 8081)
-* **GET /inventory/3**: Receber PRODUTO no ESTOQUE.
-* **POST /inventory/2**: Adicionar QUANTIDADE de PRODUTO no ESTOQUE (Envia `"quantidade": 10`).
-* **GET /inventory/1/check?quantity=10**: Verificar se PRODUTO existe na QUANTIDADE digitada no ESTOQUE.
-* **PUT /inventory/3**: Alterar/Retirar QUANTIDADE de PRODUTO no ESTOQUE (Envia `"quantidade": 1`).
+* **GET /inventory/{id}**: Receber PRODUTO no ESTOQUE.
+* **POST /inventory/{id}**: Adicionar QUANTIDADE de PRODUTO no ESTOQUE (Envia `"quantidade": 10`).
+* **GET /inventory/{id}/check?quantity=10**: Verificar se PRODUTO existe na QUANTIDADE digitada no ESTOQUE.
+* **PUT /inventory/{id}**: Alterar/Retirar QUANTIDADE de PRODUTO no ESTOQUE (Envia `"quantidade": 1`).
 
 ### 💳 PAYMENTS (Porta 8082)
-* **POST /payments**: Processar PAGAMENTO (Envia `pedidoId`, `valorPedido` e `valorPago`).
+* **POST /payments**: Processar PAGAMENTO (Envia `pedidoId`, `valorPedido` e `valorPago` e controla status `APROVADO` e `RECUSADO`).
 * **GET /payments**: Receber PAGAMENTOS.
 * **GET /payments/1**: Receber PAGAMENTO por ID.
 
 ### 📦 ORDERS (Porta 8083)
 * **GET /orders/{id}**: Ver PEDIDO.
-* **GET /orders/user/1**: Ver PEDIDO por ID de USUÁRIO.
+* **GET /orders/user/{id}**: Ver PEDIDO por ID de USUÁRIO.
 * **GET /orders**: Ver PEDIDOS.
-* **POST /orders/2/confirm-payment**: Confirmar PEDIDO (Envia o JSON com `"valorPago": 10.0` com `id do pedido como Path Variable`).
 * **POST /orders**: Criar PEDIDO com status CRIADO (Envia o `usuarioId` e a lista de itens com `produtoId` e `quantidade`).
+* **POST /orders/{id}/confirm-payment**: Confirmar PEDIDO (Envia o JSON com `"valorPago": 10.0` com `id do pedido como Path Variable`).
 
 ### 🏷️ CATALOG (Porta 8084)
 * **POST /products**: Criar PRODUTO (Envia `nome`, `observacao` e `valorIndividual`).
-* **GET /products/2**: Receber PRODUTO por ID.
+* **GET /products/{id}**: Receber PRODUTO por ID.
 * **GET /products**: Receber PRODUTOS.
 
 
